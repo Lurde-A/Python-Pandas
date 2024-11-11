@@ -1,0 +1,505 @@
+                        INTRODUCTION: MULTIPLE DATAFRAMES
+GIVEN:
+import pandas as pd
+orders = pd.read_csv('orders.csv')
+products = pd.read_csv('products.csv')
+customers = pd.read_csv('customers.csv')
+  1. In script.py, we’ve loaded in three DataFrames: orders, products, and customers. Start by inspecting orders using the following code: print(orders)
+//
+print(orders)                 RESULT:
+                                                   order_id     customer_id   product_id  quantity   timestamp
+                                         0         1            2             3           1          2017-01-01
+                                         1         2            2             2           3          2017-01-01
+                                         2         3            3             1           1          2017-01-01
+                                         3         4            3             2           2          2017-02-01
+                                         4         5            3             3           3          2017-02-01
+                                         5         6            1             4           2          2017-03-01
+                                         6         7            1             1           1          2017-02-02
+                                         7         8            1             4           1          2017-02-02
+  2. Now inspect products using the following code: print(products)
+//
+print(products)                 RESULT:
+                                                     product_id   description         price
+                                         0           1            thing-a-ma-jig      5
+                                         1           2            whatcha-ma-call-it  10
+                                         2           3            doo-hickey          7
+                                         3           4            gizmo               3
+  3. Now inspect customers using the following code: print(customers)
+//
+print(customers)                 RESULT:
+                                                     customer_id   customer_name        address          phone_number
+                                         0           1             John Smith           123 Main St.     212-123-4567
+                                         1           2             Jane Doe             456 Park Ave.    949-867-5309
+                                         2           3             Joe Schmo            798 Broadway     112-358-1321
+
+                        INNER MERGE I
+
+GIVEN:
+import codecademylib3
+import pandas as pd
+orders = pd.read_csv('orders.csv')
+products = pd.read_csv('products.csv')
+customers = pd.read_csv('customers.csv')
+print(orders)                     RESULT:
+                                                     order_id	customer_id	product_id	quantity	timestamp
+                                         0	         1      	2	          3	          1	        2017-01-01
+                                         1	         2	    	2	          2	          3	        2017-01-01
+                                         2	         3	    	3	          1	          1	        2017-01-01
+                                         3	         4	    	3	          2	          2	        2017-02-01
+                                         4	         5	    	3	          3	          3	        2017-02-01
+                                         5	         6	    	1	          4	          2	        2017-03-01
+                                         6	         7	    	1	          1	          1	        2017-02-02
+                                         7	         8	    	1	          4	          1	        2017-02-02
+print(products)                   RESULT:
+                                                     product_id	 description	      price
+                                         0	         1	         thing-a-ma-jig	    5
+                                         1	         2	         whatcha-ma-call-it	10
+                                         2	         3	         doo-hickey	        7
+                                         3	         4	         gizmo	            3
+print(customers)                  RESULT:
+                                                     customer_id	customer_name	address	      phone_number
+                                         0	         1	          John Smith	  123 Main St.	212-123-4567
+                                         1	         2	          Jane Doe	    456 Park Ave.	949-867-5309
+                                         2	         3	          Joe Schmo	    798 Broadway	112-358-1321
+  4. Examine the orders and products tables. What is the description of the product that was ordered in Order 3? Give your answer as a string assigned to the variable order_3_description.
+//
+order_3_description = 'thing-a-ma-jig'
+  5. 
+//
+order_5_phone_number = '112-358-1321'
+
+                        INNER MERGE II
+
+GIVEN:
+import codecademylib3
+import pandas as pd
+
+sales = pd.read_csv('sales.csv')
+print(sales)                     RESULT:
+                                            month	    revenue
+                                         0	January	  300
+                                         1	February	290
+                                         2	March	    310
+                                         3	April	    325
+                                         4	May	      475
+                                         5	June	    495
+targets = pd.read_csv('targets.csv')
+print(targets)                   RESULT:
+                                            month	    target
+                                         0	January	  310
+                                         1	February	270
+                                         2	March	    300
+                                         3	April	    350
+                                         4	May	      475
+                                         5	June	    500
+  6. You are an analyst at Cool T-Shirts Inc. You are going to help them analyze some of their sales data. There are two DataFrames defined in the file script.py:
+- sales contains the monthly revenue for Cool T-Shirts Inc. It has two columns: month and revenue.
+- targets contains the goals for monthly revenue for each month. It has two columns: month and target.
+Create a new DataFrame sales_vs_targets which contains the merge of sales and targets.
+  7. Display sales_vs_targets using print.
+//
+sales_vs_targets = pd.merge(sales, targets)
+print(sales_vs_targets)         RESULT:
+                                            month	    revenue  	target
+                                         0	January	  300	      310
+                                         1	February	290	      270
+                                         2	March	    310	      300
+                                         3	April	    325	      350
+                                         4	May	      475	      475
+                                         5	June	    495	      500
+  8. Cool T-Shirts Inc. wants to know the months when they crushed their targets. Select the rows from sales_vs_targets where revenue is greater than target. Save these rows to the 
+variable crushing_it.
+//
+crushing_it = sales_vs_targets[sales_vs_targets.revenue > sales_vs_targets.target]
+print(crushing_it)         RESULT:
+                                            month	    revenue	  target
+                                         1	February	290	      270
+                                         2	March	    310	      300
+
+                        INNER MERGE III
+
+GIVEN:
+import codecademylib3
+import pandas as pd
+sales = pd.read_csv('sales.csv')
+print(sales)                     RESULT:
+                                            month	    revenue
+                                         0	January	  300
+                                         1	February	290
+                                         2	March	    310
+                                         3	April	    325
+                                         4	May	      475
+                                         5	June	    495
+targets = pd.read_csv('targets.csv')
+print(targets)                   RESULT:
+                                            month	    target
+                                         0	January	  310
+                                         1	February	270
+                                         2	March	    300
+                                         3	April	    350
+                                         4	May	      475
+                                         5	June	    500
+
+  9. We have some more data from Cool T-Shirts Inc. The number of men’s and women’s t-shirts sold per month is in a file called men_women_sales.csv. 
+Load this data into a DataFrame called men_women.
+//
+men_women = pd.read_csv('men_women_sales.csv')
+print(men_women)                 RESULT:
+                                            month	    men	women
+                                         0	January	  30	35
+                                         1	February	29	35
+                                         2	March	    31	29
+                                         3	April    	32	28
+                                         4	May	      47	50
+                                         5	June    	49	45
+  10. Merge all three DataFrames (sales, targets, and men_women) into one big DataFrame called all_data.
+//
+all_data = sales.merge(targets).merge(men_women)
+  11. Display all_data using print.
+//
+print(all_data)                 RESULT:
+                                            month	    revenue	target	men	women
+                                         0	January	  300	    310	    30	35
+                                         1	February	290	    270	    29	35
+                                         2	March	    310	    300	    31	29
+                                         3	April    	325	    350	    32	28
+                                         4	May	      475	    475    	47	50
+                                         5	June	    495    	500	    49	45
+  12. Cool T-Shirts Inc. thinks that they have more revenue in months where they sell more women’s t-shirts. Select the rows of all_data where:
+- revenue is greater than target
+AND
+- women is greater than men
+Save your answer to the variable results.
+//
+results = all_data[(all_data.revenue > all_data.target)&(all_data.women > all_data.men)]
+print(results)                 RESULT:
+                                            month	    revenue	target	men	women
+                                         1	February	290	    270    	29	35
+
+                        MERGE ON SPECIFIC COLUMNS
+
+  13. Merge orders and products using .rename(). Save your results to the variable orders_products.
+  14. Display orders_products using print.
+GIVEN:
+import codecademylib3
+import pandas as pd
+orders = pd.read_csv('orders.csv')
+print(orders)                 RESULT:
+                                            id	product_id	customer_id	quantity	timestamp
+                                         0	1	  3	          2	          1	        2017-01-01
+                                         1	2	  2	          2	          3	        2017-01-01
+                                         2	3	  1	          3	          1	        2017-01-01
+                                         3	4	  2	          3	          2	        2016-02-01
+                                         4	5	  3	          3	          3	        2017-02-01
+                                         5	6	  4	          1	          2	        2017-03-01
+                                         6	7	  1	          1	          1	        2017-02-02
+                                         7	8	  4	          1	          1	        2017-02-02
+products = pd.read_csv('products.csv')
+print(products)                 RESULT:
+                                            id	description	        price
+                                         0	1	  thing-a-ma-jig	    5
+                                         1	2	  whatcha-ma-call-it	10
+                                         2	3	  doo-hickey	        7
+                                         3	4	  gizmo	              3
+//
+orders_products = pd.merge(orders, products.rename(columns={'id':'product_id'}))
+print(orders_products)         RESULT:
+                                            id	product_id	customer_id	quantity	timestamp	  description	        price
+                                         0	1	  3	          2	          1	        2017-01-01	doo-hickey	        7
+                                         1	5	  3	          3	          3	        2017-02-01	doo-hickey	        7
+                                         2	2	  2	          2	          3	        2017-01-01	whatcha-ma-call-it	10
+                                         3	4	  2	          3	          2	        2016-02-01	whatcha-ma-call-it	10
+                                         4	3	  1	          3	          1	        2017-01-01	thing-a-ma-jig    	5
+                                         5	7	  1	          1	          1	        2017-02-02	thing-a-ma-jig    	5
+                                         6	6	  4	          1	          2	        2017-03-01	gizmo              	3
+                                         7	8	  4	          1	          1	        2017-02-02	gizmo              	3
+
+                        MERGE ON SPECIFIC COLUMNS II
+
+GIVEN:
+import codecademylib3
+import pandas as pd
+orders = pd.read_csv('orders.csv')
+print(orders)                   RESULT:
+                                            id	product_id	customer_id	quantity	timestamp
+                                         0	1	  3	          2	          1	        2017-01-01
+                                         1	2	  2	          2	          3	        2017-01-01
+                                         2	3	  1	          3	          1	        2017-01-01
+                                         3	4	  2	          3	          2	        2016-02-01
+                                         4	5	  3	          3	          3        	2017-02-01
+                                         5	6	  4	          1	          2	        2017-03-01
+                                         6	7	  1	          1	          1	        2017-02-02
+                                         7	8	  4	          1	          1	        2017-02-02
+products = pd.read_csv('products.csv')
+print(products)                 RESULT:
+                                            id	description	        price
+                                         0	1	  thing-a-ma-jig	    5
+                                         1	2	  whatcha-ma-call-it	10
+                                         2	3	  doo-hickey        	7
+                                         3	4	  gizmo	              3
+  15. Merge orders and products using left_on and right_on. Use the suffixes _orders and _products. Save your results to the variable orders_products.
+  16. Display orders_products using print.
+//
+orders_products = pd.merge(
+  orders, 
+  products, 
+  left_on = 'product_id', 
+  right_on = 'id', 
+  suffixes = ['_orders', '_products'])
+print(orders_products)         RESULT:
+                                            id_orders	product_id	customer_id	quantity	timestamp	  id_products	description	        price
+                                         0	1	        3	          2	          1	        2017-01-01	3	          doo-hickey	        7
+                                         1	5	        3	          3	          3	        2017-02-01	3	          doo-hickey	        7
+                                         2	2	        2	          2	          3	        2017-01-01	2	          whatcha-ma-call-it	10
+                                         3	4	        2	          3	          2	        2016-02-01	2	          whatcha-ma-call-it	10
+                                         4	3	        1	          3	          1	        2017-01-01	1	          thing-a-ma-jig	    5
+                                         5	7	        1	          1	          1	        2017-02-02	1	          thing-a-ma-jig	    5
+                                         6	6	        4	          1	          2	        2017-03-01	4	          gizmo	              3
+                                         7	8	        4	          1	          1	        2017-02-02	4	          gizmo	              3
+
+                        MISMATCHED MERGES
+GIVEN:
+import codecademylib3
+import pandas as pd
+orders = pd.read_csv('orders.csv')
+products = pd.read_csv('products.csv')
+
+  17. We’ve just released a new product with product_id equal to 5. People are ordering this product, but we haven’t updated the products table. In script.py, you’ll find two DataFrames: 
+products and orders. Inspect these DataFrames using print. Notice that the third order in orders is for the mysterious new product, but that there is no product_id 5 in products.
+//
+print(orders)                   RESULT:
+                                            id	product_id	customer_id	quantity	timestamp
+                                         0	1	  3	          2	          1	        2017-01-01
+                                         1	2  	2	          2	          3	        2017-01-01
+                                         2	3	  5	          1	          1	        2017-01-01
+                                         3	4	  2	          3	          2	        2016-02-01
+                                         4	5	  3	          3	          3	        2017-02-01
+print(products)                 RESULT:
+                                            product_id	description	        price
+                                         0	1	          thing-a-ma-jig    	5
+                                         1	2	          whatcha-ma-call-it	10
+                                         2	3	          doo-hickey        	7
+                                         3	4	          gizmo	              3
+  18. Merge orders and products and save it to the variable merged_df. Inspect merged_df using: print(merged_df). What happened to order_id 3?
+//
+merged_df = pd.merge(orders, products)
+print(merged_df)                RESULT:
+                                            id	product_id	customer_id	quantity	timestamp	  description	        price
+                                         0	1	  3	          2	          1	        2017-01-01	doo-hickey	        7
+                                         1	5	  3	          3	          3	        2017-02-01	doo-hickey	        7
+                                         2	2	  2	          2          	3	        2017-01-01	whatcha-ma-call-it	10
+                                         3	4	  2	          3	          2	        2016-02-01	whatcha-ma-call-it	10
+
+                        OUTER MERGE
+
+GIVEN:
+import codecademylib3
+import pandas as pd
+store_a = pd.read_csv('store_a.csv')
+print(store_a)                  RESULT:
+                                            item	        store_a_inventory
+                                         0	hammer	      12
+                                         1	screwdriver  	15
+                                         2	nails	        200
+                                         3	screws    	  350
+                                         4	saw	          6
+                                         5	duct tape	    150
+                                         6	wrench	      12
+                                         7	pvc pipe	    54
+store_b = pd.read_csv('store_b.csv')
+print(store_b)                  RESULT:
+                                            item	        store_b_inventory
+                                         0	hammer	      6
+                                         1	nails	        250
+                                         2	saw	          6
+                                         3	duct tape	    150
+                                         4	pvc pipe	    54
+                                         5	rake	        10
+                                         6	shovel      	15
+                                         7	wooden dowels	192
+  19. There are two hardware stores in town: Store A and Store B. Store A’s inventory is in DataFrame store_a and Store B’s inventory is in DataFrame store_b. 
+They have decided to merge into one big Super Store! Combine the inventories of Store A and Store B using an outer merge. Save the results to the variable store_a_b_outer.
+//
+store_a_b_outer = pd.merge(store_a, store_b, how='outer')
+print(store_a_b_outer)           RESULT:
+                                            item	        store_a_inventory	store_b_inventory
+                                         0	hammer	      12.0	            6.0
+                                         1	screwdriver  	15.0	            nan
+                                         2	nails	        200.0	            250.0
+                                         3	screws	      350.0	            nan
+                                         4	saw	          6.0	              6.0
+                                         5	duct tape	    150.0	            150.0
+                                         6	wrench	      12.0	            nan
+                                         7	pvc pipe	    54.0	            54.0
+                                         8	rake	        nan	              10.0
+                                         9	shovel	      nan	              15.0
+                                         10	wooden dowels	nan	              192.0
+
+                        LEFT AND RIGHT MERGE
+
+GIVEN:
+import codecademylib3
+import pandas as pd
+store_a = pd.read_csv('store_a.csv')
+print(store_a)                  RESULT:
+                                            item	      store_a_inventory
+                                         0	hammer	    12
+                                         1	screwdriver	15
+                                         2	nails      	200
+                                         3	screws	    350
+                                         4	saw        	6
+                                         5	duct tape  	150
+                                         6	wrench	    12
+                                         7	pvc pipe  	54
+
+store_b = pd.read_csv('store_b.csv')
+print(store_b)                  RESULT:
+                                            item	        store_b_inventory
+                                         0	hammer	      6
+                                         1	nails	        250
+                                         2	saw	          6
+                                         3	duct tape	    150
+                                         4	pvc pipe	    54
+                                         5	rake	        10
+                                         6	shovel	      15
+                                         7	wooden dowels	192
+
+  20. Let’s return to the two hardware stores, Store A and Store B. They’re not quite sure if they want to merge into a big Super Store just yet. Store A wants to find out what products 
+they carry that Store B does not carry. Using a left merge, combine store_a to store_b and save the results to store_a_b_left. The items with null in store_b_inventory are carried 
+by Store A, but not Store B. Paste the following code into script.py: print(store_a_b_left)
+//
+store_a_b_left = pd.merge(store_a, store_b, how = 'left')
+print(store_a_b_left)          RESULT:
+                                            item	        store_a_inventory	store_b_inventory
+                                         0	hammer	      12	              6.0
+                                         1	screwdriver	  15	              nan
+                                         2	nails	        200	              250.0
+                                         3	screws	      350	              nan
+                                         4	saw	          6	                6.0
+                                         5	duct tape	    150	              150.0
+                                         6	wrench	      12	              nan
+                                         7	pvc pipe	    54	              54.0
+  21. Now, Store B wants to find out what products they carry that Store A does not carry. Use a left join, to combine the two DataFrames but in the reverse order (i.e., store_b 
+followed by store_a) and save the results to the variable store_b_a_left. Which items are not carried by Store A, but are carried by Store B? Paste the following code into script.py:
+print(store_b_a_left)
+//
+store_b_a_left = pd.merge(store_b, store_a, how = 'left')
+print(store_b_a_left)          RESULT:
+                                            item	        store_b_inventory	store_a_inventory
+                                         0	hammer      	6	                12.0
+                                         1	nails	        250	              200.0
+                                         2	saw	          6	                6.0
+                                         3	duct tape	    150	              150.0
+                                         4	pvc pipe	    54	              54.0
+                                         5	rake	        10	              nan
+                                         6	shovel      	15	              nan
+                                         7	wooden dowels	192	              nan
+store_b_a_left = pd.merge(store_b, store_a, how = 'left')
+  22. Paste the following code into script.py: print(store_a_b_left), print(store_b_a_left) to Clipboard. What do you notice about these two DataFrames? How are they different?
+How are they the same?
+
+                        CONCATENATE DATAFRAMES
+
+GIVEN:
+import codecademylib3
+import pandas as pd
+bakery = pd.read_csv('bakery.csv')
+print(bakery)                  RESULT:
+                                            item	              price
+                                         0	cookie            	2.5
+                                         1	brownie	            3.5
+                                         2	slice of cake	      4.75
+                                         3	slice of cheesecake	4.75
+                                         4	slice of pie	      5.0
+ice_cream = pd.read_csv('ice_cream.csv')
+print(ice_cream)               RESULT:
+                                            item	                            price
+                                         0	scoop of chocolate ice cream	    3.0
+                                         1	scoop of vanilla ice cream	      2.95
+                                         2	scoop of strawberry ice cream	    3.05
+                                         3	scoop of cookie dough ice cream	  3.25
+  23. An ice cream parlor and a bakery have decided to merge. The bakery’s menu is stored in the DataFrame bakery, and the ice cream parlor’s menu is stored in DataFrame ice_cream. 
+Create their new menu by concatenating the two DataFrames into a DataFrame called menu.
+  24. Display menu using print.
+//
+menu = pd.concat([bakery, ice_cream])
+print(menu)                    RESULT:
+                                            item	                          price
+                                         0	cookie	                        2.5
+                                         1	brownie	                        3.5
+                                         2	slice of cake	                  4.75
+                                         3	slice of cheesecake	            4.75
+                                         4	slice of pie	                  5.0
+                                         0	scoop of chocolate ice cream	  3.0
+                                         1	scoop of vanilla ice cream	    2.95
+                                         2	scoop of strawberry ice cream	  3.05
+                                         3	scoop of cookie dough ice cream	3.25
+
+                        REVIEW
+
+GIVEN:
+import codecademylib3
+import pandas as pd
+visits = pd.read_csv('visits.csv',
+                        parse_dates=[1])
+checkouts = pd.read_csv('checkouts.csv',
+                        parse_dates=[1])
+  1. Cool T-Shirts Inc. just created a website for ordering their products. They want you to analyze two datasets for them: visits contains information on all visits to their landing page, 
+checkouts contains all users who began to checkout on their website. Use print to inspect each DataFrame.
+//
+visits = pd.read_csv('visits.csv',
+                        parse_dates=[1])
+print(visits.head(10))              RESULT:
+                                            user_id	                              visit_time
+                                         0	319350b4-9951-47ef-b3a7-6b252099905f	2017-02-21 07:16:00
+                                         1	7435ec9f-576d-4ebd-8791-361b128fca77	2017-05-16 08:37:00
+                                         2	0b061e73-f709-42fa-8d1a-5f68176ff154	2017-04-12 19:32:00
+                                         3	9133d6f0-e68b-4c8d-bafd-ff2825e8dafe	2017-08-18 04:32:00
+                                         4	08d13edb-071c-4cfb-9ee4-8f377d0e932a	2017-07-08 06:24:00
+                                         5	c7192ab9-e033-4b69-971d-4bd92631342e	2017-10-05 09:16:00
+                                         ...
+checkouts = pd.read_csv('checkouts.csv',
+                        parse_dates=[1])
+print(checkouts.head(10))           RESULT:
+                                            user_id	                              checkout_time
+                                         0	fe90a9f4-960a-4a0d-9160-e562adb79365	2017-11-09 09:25:00
+                                         1	1a35b7eb-f603-407d-91be-a2c3304066fd	2017-08-15 21:25:00
+                                         2	e2c24ee0-7fdf-4400-abde-b36378fe5ce6	2017-07-04 15:39:00
+                                         3	10dbd3c5-d610-44e9-9994-110a7950b6b4	2017-08-09 21:07:00
+                                         4	f028e9dd-77d0-4002-83f6-372a4837fda6	2017-10-27 08:57:00
+                                         5	b7953447-00a8-42be-99d2-b511f4e9c12b	2017-04-24 10:20:00
+                                         ...
+  2. We want to know the amount of time from a user’s initial visit to the website to when they start to check out. Use merge to combine visits and checkouts and save it to the 
+variable v_to_c.
+//
+v_to_c = pd.merge(visits, checkouts)
+print(v_to_c.head(10))           RESULT:
+                                            user_id	                              visit_time	          checkout_time
+                                         0	319350b4-9951-47ef-b3a7-6b252099905f	2017-02-21 07:16:00	  2017-02-21 07:27:00
+                                         1	319350b4-9951-47ef-b3a7-6b252099905f	2017-02-21 07:16:00	  2017-02-21 07:40:00
+                                         2	7435ec9f-576d-4ebd-8791-361b128fca77	2017-05-16 08:37:00	  2017-05-16 08:49:00
+                                         3	7435ec9f-576d-4ebd-8791-361b128fca77	2017-05-16 08:37:00	  2017-05-16 08:55:00
+                                         4	08d13edb-071c-4cfb-9ee4-8f377d0e932a	2017-07-08 06:24:00	  2017-07-08 06:32:00
+                                         5	c4dac0f2-2fa9-48a8-b056-c3b2a5a5c683	2017-07-09 14:19:00	  2017-07-09 14:26:00
+                                         ...
+  3. In order to calculate the time between visiting and checking out, define a column of v_to_c called time that calculates the difference between checkout_time and visit_time for every row.
+//
+v_to_c['time'] = v_to_c.checkout_time - v_to_c.visit_time
+print(v_to_c.head(10))           RESULT:
+                                            user_id	                              visit_time	        checkout_time	      time
+                                         0	319350b4-9951-47ef-b3a7-6b252099905f	2017-02-21 07:16:00	2017-02-21 07:27:00	0 days 00:11:00
+                                         1	319350b4-9951-47ef-b3a7-6b252099905f	2017-02-21 07:16:00	2017-02-21 07:40:00	0 days 00:24:00
+                                         2	7435ec9f-576d-4ebd-8791-361b128fca77	2017-05-16 08:37:00	2017-05-16 08:49:00	0 days 00:12:00
+                                         3	7435ec9f-576d-4ebd-8791-361b128fca77	2017-05-16 08:37:00	2017-05-16 08:55:00	0 days 00:18:00
+                                         4	08d13edb-071c-4cfb-9ee4-8f377d0e932a	2017-07-08 06:24:00	2017-07-08 06:32:00	0 days 00:08:00
+                                         5	c4dac0f2-2fa9-48a8-b056-c3b2a5a5c683	2017-07-09 14:19:00	2017-07-09 14:26:00	0 days 00:07:00
+                                         ...
+  4. Use .mean() to calculate the average time to checkout and print that value to the terminal.
+//
+print(v_to_c['time'].mean())     RESULT:
+                                            0 days 00:15:24.750000
+
+
+
+
+

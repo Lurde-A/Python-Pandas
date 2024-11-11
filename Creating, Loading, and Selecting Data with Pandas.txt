@@ -1,0 +1,365 @@
+                      CREATE A DATAFRAME I
+
+  1. You run an online clothing store called Panda’s Wardrobe. You need a DataFrame containing information about your products.
+Create a DataFrame with the following data that your inventory manager sent you:
+Product ID	Product Name	Color
+1	          t-shirt	      blue
+2	          t-shirt      	green
+3	          skirt	        red
+4	          skirt	        black
+We have already filled in the information for Product ID in df1. Add the code to create the columns Product Name and Color and their associated data.
+//
+import codecademylib3
+import pandas as pd
+df1 = pd.DataFrame({
+  'Product ID': [1, 2, 3, 4], 'Product Name': ['t-shirt', 't-shirt', 'skirt', 'skirt'], 'Color': ['blue', 'green', 'red', 'black']
+  })
+print(df1)
+
+                      CREATE A DATAFRAME II
+
+  2. You’re running a chain of pita shops called Pita Power. You want to create a DataFrame with information on your different store locations.
+Use a list of lists to create a DataFrame with the following data:
+Store ID	Location	    Number of Employees
+1	        San Diego	    100
+2	        Los Angeles	  120
+3	        San Francisco	90
+4	        Sacramento  	115
+We have filled in the information for the first two rows in df2. Add the code to create the 3rd and 4th rows, and the column names.
+//
+import codecademylib3
+import pandas as pd
+df2 = pd.DataFrame([
+  [1, 'San Diego', 100],
+  [2, 'Los Angeles', 120],
+  [3, 'San Francisco', 90],
+  [4, 'Sacramento', 115]],
+  columns=['Store ID', 'Location', 'Number of Employees'])
+print(df2)
+
+                      COMMA SEPARATED VALUES
+
+  3. You run a cupcake store and want to create a record of all of the cupcakes that you offer. Write the following data as a CSV in cupcakes.csv.
+name      	    cake_flavor	      frosting_flavor	      topping
+Chocolate Cake	chocolate	        chocolate	            chocolate shavings
+Birthday Cake	  vanilla          	vanilla	              rainbow sprinkles
+Carrot Cake	    carrot	          cream cheese	        almonds
+//
+name,cake_flavor,frosting_flavor,topping
+Chocolate Cake,chocolate,chocolate,chocolate shavings
+Birthday Cake,vanilla,vanilla,rainbow sprinkles
+Carrot Cake,carrot,cream cheese,almonds
+
+                      LOADING AND SAVING CSVs
+
+  4. You’re working for the County of Whoville and you just received a CSV of data about the different cities in your county. Read the CSV 'sample.csv' into a variable called df, 
+so that you can learn more about the cities.
+//
+import codecademylib3
+import pandas as pd
+df = pd.read_csv('sample.csv')
+  5. Let’s inspect the CSV. Type print(df) on the next line and then run your code. What sort of data were you sent?
+//
+import codecademylib3
+import pandas as pd
+df = pd.read_csv('sample.csv')
+print(df)
+
+                      INSPECT A DATAFRAME
+
+  6. You’re working for a Hollywood studio, trying to use data to predict the next big hit. Load the CSV imdb.csv into a variable called df, so that you can learn about popular 
+movies from the past 90 years.
+//
+import codecademylib3
+import pandas as pd
+df = pd.read_csv('imdb.csv')
+
+  7. Let’s learn about these movies. Paste the following code into script.py: print(df.head()) What happens when you press “Run”?
+//
+import codecademylib3                                              RESULT:
+import pandas as pd                                                   id                                       name   genre  year  imdb_rating
+#load the CSV below:                                               0   1                                     Avatar  action  2009          7.9
+df = pd.read_csv('imdb.csv')                                       1   2                             Jurassic World  action  2015          7.3
+print(df.head())                                                   2   3                               The Avengers  action  2012          8.1
+                                                                   3   4                            The Dark Knight  action  2008          9.0
+                                                                   4   5  Star Wars: Episode I - The Phantom Menace  action  1999          6.6
+
+  8. What exactly is in this dataset? Paste the following code into script.py to learn more about this data: print(df.info()) What happens when you press “Run”?
+//
+import codecademylib3                                              RESULT: 
+import pandas as pd                                                <class 'pandas.core.frame.DataFrame'>
+#load the CSV below:                                               RangeIndex: 220 entries, 0 to 219
+df = pd.read_csv('imdb.csv')                                       Data columns (total 5 columns):
+print(df.info())                                                   id             220 non-null int64
+                                                                   name           220 non-null object
+                                                                   genre          220 non-null object
+                                                                   year           220 non-null int64
+                                                                   imdb_rating    220 non-null float64
+                                                                   dtypes: float64(1), int64(2), object(2)
+                                                                   memory usage: 8.7+ KB
+                                                                   None
+
+                      SELECT COLUMNS
+
+  9. The DataFrame df represents data collected by four health clinics run by the same organization. Each row represents a month from January through June and shows the number of 
+appointments made at four different clinics.
+You want to analyze what’s been happening at the North location. Create a variable called clinic_north that contains ONLY the data from the column clinic_north.
+GIVEN: 
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  ['January', 100, 100, 23, 100],
+  ['February', 51, 45, 145, 45],
+  ['March', 81, 96, 65, 96],
+  ['April', 80, 80, 54, 180],
+  ['May', 51, 54, 54, 154],
+  ['June', 112, 109, 79, 129]],
+  columns=['month', 'clinic_east',
+           'clinic_north', 'clinic_south',
+           'clinic_west'])
+//
+clinic_north = df.clinic_north
+
+  10. What exactly have you selected? After you create the variable, enter the command:
+print(type(clinic_north))
+to see what data type you’ve created. How is this different from what you get if you type the following?
+print(type(df))
+//
+clinic_north = df.clinic_north                                              RESULT:<class 'pandas.core.series.Series'>
+print(type(clinic_north))                                                          <class 'pandas.core.frame.DataFrame'>
+print(type(df))
+
+                      SELECTING MULTIPLE COLUMNS
+
+  11. Now, you want to compare visits to the Northern and Southern clinics. Create a variable called clinic_north_south that contains ONLY the data from the columns clinic_north 
+and clinic_south.
+GIVEN: 
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  ['January', 100, 100, 23, 100],
+  ['February', 51, 45, 145, 45],
+  ['March', 81, 96, 65, 96],
+  ['April', 80, 80, 54, 180],
+  ['May', 51, 54, 54, 154],
+  ['June', 112, 109, 79, 129]],
+  columns=['month', 'clinic_east',
+           'clinic_north', 'clinic_south',
+           'clinic_west'])
+//
+clinic_north_south = df[['clinic_north', 'clinic_south']]
+
+  12. When we select multiple columns, do we get a Series or a DataFrame? After you’ve created the variable, enter the command:
+print(type(clinic_north_south))
+to see what data type you’ve created. How is this different from what happened in the previous exercise?
+//
+clinic_north_south = df[['clinic_north', 'clinic_south']]                                              RESULT: 
+print(type(clinic_north_south))                                                                        <class 'pandas.core.frame.DataFrame'>
+print(clinic_north_south)                                                                                 clinic_north  clinic_south
+                                                                                                       0           100            23
+                                                                                                       1            45           145
+                                                                                                       2            96            65
+                                                                                                       3            80            54
+                                                                                                       4            54            54
+                                                                                                       5           109            79
+
+                      SELECT ROWS
+
+  13. You’re getting ready to staff the clinic for March this year. You want to know how many visits took place in March last year, to help you prepare. Write a command that will produce 
+a Series made up of the March data from df from all four clinic sites and save it to the variable march.
+GIVEN:
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  ['January', 100, 100, 23, 100],
+  ['February', 51, 45, 145, 45],
+  ['March', 81, 96, 65, 96],
+  ['April', 80, 80, 54, 180],
+  ['May', 51, 54, 54, 154],
+  ['June', 112, 109, 79, 129]],
+  columns=['month', 'clinic_east',
+           'clinic_north', 'clinic_south',
+           'clinic_west'])
+//
+march = df.iloc[2]                                              RESULT: month           March
+print(march)                                                            clinic_east        81
+                                                                        clinic_north       96
+                                                                        clinic_south       65
+                                                                        clinic_west        96
+                                                                        Name: 2, dtype: object
+
+                      SELECTING MULTIPLE ROWS
+
+  14. One of your doctors thinks that there are more clinic visits in the late Spring. Write a command that will produce a DataFrame made up of the data for April, May, and June 
+from df for all four sites (rows 3 through 6), and save it to april_may_june.
+  15. Inspect april_may_june using print.
+GIVEN: 
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  ['January', 100, 100, 23, 100],
+  ['February', 51, 45, 145, 45],
+  ['March', 81, 96, 65, 96],
+  ['April', 80, 80, 54, 180],
+  ['May', 51, 54, 54, 154],
+  ['June', 112, 109, 79, 129]],
+  columns=['month', 'clinic_east',
+           'clinic_north', 'clinic_south',
+           'clinic_west'])
+//
+april_may_june = df.iloc[3:6]                                    RESULT:     month	clinic_east	clinic_north	clinic_south	clinic_west
+print(april_may_june)                                                     3	 April	  80	        80	          54	          180
+                                                                          4	 May	    51	        54	          54	          154
+                                                                          5	 June	    112	        109	          79	          129
+
+                      SELECT ROWS WITH LOGIC I
+
+  16. You’re going to staff the clinic for January of this year. You want to know how many visits took place in January of last year, to help you prepare. Create variable january using 
+a logical statement that selects the row of df where the 'month' column is 'January'.
+  17. Inspect january using print.
+GIVEN:
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  ['January', 100, 100, 23, 100],
+  ['February', 51, 45, 145, 45],
+  ['March', 81, 96, 65, 96],
+  ['April', 80, 80, 54, 180],
+  ['May', 51, 54, 54, 154],
+  ['June', 112, 109, 79, 129]],
+  columns=['month', 'clinic_east',
+           'clinic_north', 'clinic_south',
+           'clinic_west'])
+//
+january = df[df.month == 'January']                               RESULT:     month	   clinic_east	clinic_north	clinic_south	clinic_west
+  print(january)                                                           0	January	     100	        100	           23	         100
+
+                      SELECT ROWS WITH LOGIC II
+
+  18. You want to see how the number of clinic visits changed between March and April. Create the variable march_april, which contains the data from March and April. Do this using 
+two logical statements combined using |, which means “or”.
+  19. Inspect march_april using print.
+GIVEN:
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  ['January', 100, 100, 23, 100],
+  ['February', 51, 45, 145, 45],
+  ['March', 81, 96, 65, 96],
+  ['April', 80, 80, 54, 180],
+  ['May', 51, 54, 54, 154],
+  ['June', 112, 109, 79, 129]],
+  columns=['month', 'clinic_east',
+           'clinic_north', 'clinic_south',
+           'clinic_west'])
+//
+march_april = df[(df.month == "March") | (df.month == "April")]             RESULT:     month	   clinic_east	clinic_north	clinic_south	clinic_west
+print(march_april)                                                                  2   March      81           96            65            96
+                                                                                    3	  April	     80	          80	          54	          180
+
+                      SELECT ROWS WITH LOGIC III
+
+  20. Another doctor thinks that you have a lot of clinic visits in the late Winter. Create the variable january_february_march, containing the data from January, February, and March. 
+Do this using a single logical statement with the isin command.
+  21. Inspect january_february_march using print.
+GIVEN:
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  ['January', 100, 100, 23, 100],
+  ['February', 51, 45, 145, 45],
+  ['March', 81, 96, 65, 96],
+  ['April', 80, 80, 54, 180],
+  ['May', 51, 54, 54, 154],
+  ['June', 112, 109, 79, 129]],
+  columns=['month', 'clinic_east',
+           'clinic_north', 'clinic_south',
+           'clinic_west'])
+//
+january_february_march = df[df.month.isin(["January", "February", "March"])]             RESULT:     month	   clinic_east	clinic_north	clinic_south	clinic_west
+print(january_february_march)                                                                     0  January        100          100           23           100
+                                                                                                  1  February       51           45            145          45
+                                                                                                  2  March          81           96            65           96
+
+                      SETTING INDICES
+
+  22. Examine the code in the workspace. Note that df2 is a subset of rows from df. Type the following and press “Run”:
+print(df2)
+Note that the indices on df2 are not consecutive.
+GIVEN:
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  ['January', 100, 100, 23, 100],
+  ['February', 51, 45, 145, 45],
+  ['March', 81, 96, 65, 96],
+  ['April', 80, 80, 54, 180],
+  ['May', 51, 54, 54, 154],
+  ['June', 112, 109, 79, 129]],
+  columns=['month', 'clinic_east',
+           'clinic_north', 'clinic_south',
+           'clinic_west'])
+df2 = df.loc[[1, 3, 5]]
+//
+print(df2)                                                           RESULT:     month	   clinic_east	clinic_north	clinic_south	clinic_west
+                                                                              1	 February	      51	          45	         145	         45
+                                                                              3	 April	        80	          80	         54	           180
+                                                                              5	 June          	112	          109	         79	           129
+
+  23. Create a new DataFrame called df3 by resetting the indices on df2 (don’t use inplace or drop). Did df2 change after you ran this command?
+//
+df3 = df2.reset_index()
+print(df3)                                                           RESULT:     month	   clinic_east	clinic_north	clinic_south	clinic_west
+                                                                            0	1  February	      51	          45	         145	         45
+                                                                            1	3	 April	        80	          80	         54	           180
+                                                                            2	5	 June	          112	          109	         79	           129
+
+  24. Reset the indices of df2 by using the keyword inplace=True and drop=True. Did the indices of df2 change? How is df2 different from df3?
+//
+df2 = df2.reset_index(inplace=True, drop=True)
+print(df2)                                                           RESULT:     month	   clinic_east	clinic_north	clinic_south	clinic_west
+                                                                            	0  February	      51	          45	         145	         45
+                                                                            	1	 April	        80	          80	         54	           180
+                                                                            	2	 June	          112	          109	         79	           129
+
+                      REVIEW
+
+  25. In this example, you’ll be the data analyst for ShoeFly.com, a fictional online shoe store. You’ve seen this data; now it’s your turn to work with it!
+Load the data from shoefly.csv into the variable orders.
+GIVEN: 
+import codecademylib3
+import pandas as pd
+//
+orders = pd.read_csv('shoefly.csv')
+  26. Inspect the first 5 lines of the data.
+//
+first_lines = orders.head(5)                                         RESULT:    id	  first_name	last_name	  email	                        shoe_type	    shoe_material	  shoe_color
+print(first_lines)                                                           0	54791	Rebecca	    Lindsay	    RebeccaLindsay57@hotmail.com	clogs	        faux-leather	  black
+                                                                             1	53450	Emily	      Joyce	      EmilyJoyce25@gmail.com	      ballet flats	faux-leather	  navy
+                                                                             2	91987	Joyce	      Waller    	Joyce.Waller@gmail.com	      sandals	      fabric	        black
+                                                                             3	14437	Justin	    Erickson	  Justin.Erickson@outlook.com	  clogs	        faux-leather	  red
+                                                                             4	79357	Andrew	    Banks	      AB4318@gmail.com	            boots	        leather	        brown
+  27. Your marketing department wants to send out an email blast to everyone who ordered shoes! Select all of the email addresses from the column email and save them to a variable 
+called emails.
+//
+emails = orders.email
+  28. Frances Palmer claims that her order was wrong. What did Frances Palmer order? Use logic to select that row of orders and save it to the variable frances_palmer.
+//
+frances_palmer = orders[orders.first_name == 'Frances']             RESULT:    id	    first_name	last_name	  email	                        shoe_type	    shoe_material	  shoe_color
+print(frances_palmer)                                                       9  62083	Frances	    Palmer	    FrancesPalmer50@gmail.com	    wedges	      leather	        white
+  29. We need some customer reviews for our comfortable shoes. Select all orders for shoe_type: clogs, boots, and ballet flats and save them to the variable comfy_shoes.
+//
+comfy_shoes = orders[orders.shoe_type.isin(['clogs', 'boots', 'ballet flats'])]
+                                                                    RESULT:    id	    first_name	last_name	  email	                        shoe_type	    shoe_material	  shoe_color
+                                                                            0	 54791	Rebecca	    Lindsay	    RebeccaLindsay57@hotmail.com	clogs	        faux-leather	  black
+                                                                            1	 53450	Emily	      Joyce	      EmilyJoyce25@gmail.com	      ballet flats	faux-leather	  navy
+                                                                            3	 14437	Justin	    Erickson	  Justin.Erickson@outlook.com	  clogs	        faux-leather	  red
+                                                                            4	 79357	Andrew	    Banks      	AB4318@gmail.com	            boots	        leather	        brown
+                                                                            6	 20487	Thomas	    Jensen	    TJ5470@gmail.com	            clogs	        fabric	        navy
+                                                                            7	 76971	Janice	    Hicks	      Janice.Hicks@gmail.com      	clogs	        faux-leather  	navy
+                                                                            8	 21586	Gabriel	    Porter	    GabrielPorter24@gmail.com	    clogs	        leather	        brown
+                                                                            10 91629	Jessica	    Hale	      JessicaHale25@gmail.com	      clogs        	leather	        red
+                                                                            12 45832	Susan	      Dennis	    SusanDennis58@gmail.com	      ballet        flats	fabric  	white
+                                                                            14 73431	Rebecca	    Charles	    Rebecca.Charles@gmail.com	    boots	        faux-leather	  white
+                                                                            16 39888	Vincent	    Stephenson	VS4753@outlook.com	          boots	        leather        	black
+                                                                            17 35961	Roy	        Tillman	    RoyTillman20@gmail.com	      boots	        leather	        white

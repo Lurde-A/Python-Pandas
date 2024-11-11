@@ -1,0 +1,320 @@
+                        ADDING A COLUMN I
+
+  1. The DataFrame df contains information on products sold at a hardware store. Add a column to df called 'Sold in Bulk?', which indicates if the product is sold in bulk or individually. 
+The final table should look like this:
+                                          Product ID	  Product Description	  Cost to Manufacture	   Price	  Sold in Bulk?
+                                               1	      3 inch screw	        0.50	                 0.75	    Yes
+                                               2	      2 inch nail	          0.10	                 0.25	    Yes
+                                               3	      hammer                3.00	                 5.50	    No
+                                               4	      screwdriver	          2.50	                 3.00	    No
+GIVEN:
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  [1, '3 inch screw', 0.5, 0.75],
+  [2, '2 inch nail', 0.10, 0.25],
+  [3, 'hammer', 3.00, 5.50],
+  [4, 'screwdriver', 2.50, 3.00]
+],
+  columns=['Product ID', 'Description', 'Cost to Manufacture', 'Price'])
+# Add columns here
+print(df)
+//
+df['Sold in Bulk?'] = ['Yes', 'Yes', 'No', 'No']
+print(df)
+
+                        ADDING A COLUMN II
+
+  2. Add a column to df called Is taxed?, which indicates whether or not to collect sales tax on the product. It should be 'Yes' for all rows.
+GIVEN:
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  [1, '3 inch screw', 0.5, 0.75],
+  [2, '2 inch nail', 0.10, 0.25],
+  [3, 'hammer', 3.00, 5.50],
+  [4, 'screwdriver', 2.50, 3.00]
+],
+  columns=['Product ID', 'Description', 'Cost to Manufacture', 'Price']
+)
+# Add columns here
+print(df)
+//
+df['Is taxed?'] = 'Yes'
+print(df)                                 RESULT:
+                                          Product ID	  Product Description	  Cost to Manufacture	   Price	  Is taxed?
+                                      0   1	            3 inch screw	        0.50	                 0.75	    Yes
+                                      1   2	            2 inch nail	          0.10	                 0.25	    Yes
+                                      2   3	            hammer                3.00	                 5.50	    Yes
+                                      3   4	            screwdriver	          2.50	                 3.00	    Yes
+
+                        ADDING A COLUMN III
+
+  3. Add a column to df called 'Margin', which is equal to the difference between the Price and the Cost to Manufacture.
+GIVEN:
+import codecademylib3
+import pandas as pd
+df = pd.DataFrame([
+  [1, '3 inch screw', 0.5, 0.75],
+  [2, '2 inch nail', 0.10, 0.25],
+  [3, 'hammer', 3.00, 5.50],
+  [4, 'screwdriver', 2.50, 3.00]
+],
+  columns=['Product ID', 'Description', 'Cost to Manufacture', 'Price']
+)
+# Add column here
+print(df)
+//
+df['Margin'] = df.Price - df['Cost to Manufacture']
+print(df)                                 RESULT:
+                                          Product ID	  Product Description	  Cost to Manufacture	   Price	  Margin
+                                      0   1	            3 inch screw	        0.50	                 0.75	    0.25
+                                      1   2	            2 inch nail	          0.10	                 0.25	    0.15
+                                      2   3	            hammer                3.00	                 5.50	    2.5
+                                      3   4	            screwdriver	          2.50	                 3.00	    0.5
+
+                        PERFORMING COLUMN OPERATIONS
+
+  4. Apply the function lower to all names in column 'Name' in df. Assign these new names to a new column of df called 'Lowercase Name'. The final DataFrame should look like this:
+Name	        Email	                Lowercase Name
+JOHN SMITH	  john.smith@gmail.com	john smith
+Jane Doe	    jdoe@yahoo.com	      jane doe
+joe schmo	    joeschmo@hotmail.com	joe schmo
+//
+df['Lowercase Name'] = df.Name.apply(str.lower)
+print(df)                                 RESULT:
+                                          Name	        Email	                Lowercase Name
+                                          JOHN SMITH	  john.smith@gmail.com	john smith
+                                          Jane Doe	    jdoe@yahoo.com	      jane doe
+                                          joe schmo	    joeschmo@hotmail.com	joe schmo
+
+                        REVIEWING LAMBDA FUNCTION
+
+  5. Create a lambda function mylambda that returns the first and last letters of a string, assuming the string is at least 2 characters long. For example,
+print(mylambda('This is a string'))
+should produce: 'Tg'
+//
+mylambda = lambda x: str(x[0]) + str(x[-1])
+print(mylambda("Testas"))                RESULT: "Ts"
+
+                        REVIEWING LAMBDA FUNCTION: IF STATEMENTS
+
+  6. You are managing the webpage of a somewhat violent video game and you want to check that each user’s age is 13 or greater when they visit the site.
+Write a lambda function that takes an inputted age and either returns Welcome to BattleCity! if the user is 13 or older or You must be 13 or older if they are younger than 13. 
+Your lambda function should be called mylambda.
+GIVEN:
+import codecademylib3
+//
+mylambda = lambda age: 'Welcome to BattleCity!' if age >= 13 else 'You must be 13 or older'
+
+                        APPLYING A LAMBDA TO A COLUMN
+
+  7. Create a lambda function get_last_name which takes a string with someone’s first and last name (i.e., John Smith), and returns just the last name (i.e., Smith).
+GIVEN:
+import codecademylib3                                                    id	    name	            hourly_wage	  hours_worked
+import pandas as pd                                                   0	 10310	Lauren Durham	    19	          43
+df = pd.read_csv('employees.csv')                                     1	 18656	Grace Sellers	    17	          40
+                                                                      2	 61254	Shirley Rasmussen	16	          30
+                                                                      3	 16886	Brian Rojas	      18	          47
+                                                                      4	 89010	Samantha Mosley	  11	          38
+                                                                      5	 87246	Louis Guzman	    14	          39
+                                                                      6	 20578	Denise Mcclure	  15	          40
+                                                                      7	 12869	James Raymond	    15	          32
+                                                                      8	 53461	Noah Collier	    18	          35
+                                                                      9	 14746	Donna Frederick	  20	          41
+                                                                      10 71127	Shirley Beck	    14	          32
+                                                                      11 92522	Christina Kelly	  8	            44
+                                                                      12 22447	Brian Noble	      11	          39
+                                                                      13 61654	Randy Key	        16	          38
+                                                                      14 16988	Diana Stewart	    14	          48
+                                                                      15 68619	Timothy Sosa	    14	          42
+                                                                      16 59949	Betty Skinner	    11	          48
+                                                                      17 81418	Janet Maxwell	    12	          38
+                                                                      18 27267	Madison Johnston	20	          37
+                                                                      19 19985	Virginia Nichols	13	          49
+//
+get_last_name = lambda first_name: first_name.split(' ')[-1]
+  8. The DataFrame df represents the hours worked by different employees over the course of the week. It contains the following columns:
+'name': The employee’s name
+'hourly_wage': The employee’s hourly wage
+'hours_worked': The number of hours worked this week
+Use the lambda function get_last_name to create a new column last_name with only the employees’ last name.
+//
+get_last_name = lambda first_name: first_name.split(' ')[-1]
+df['last_name'] = df.name.apply(get_last_name)
+print(df)                                                  RESULT:
+                                                                         id	    name	            hourly_wage	  hours_worked  last_name
+                                                                      0	 10310	Lauren Durham	    19	          43            Durham
+                                                                      1	 18656	Grace Sellers	    17	          40            Sellers
+                                                                      2	 61254	Shirley Rasmussen	16	          30            Rasmussen
+                                                                      3	 16886	Brian Rojas	      18	          47            Rojas
+                                                                      4	 89010	Samantha Mosley	  11	          38            Mosley
+                                                                      5	 87246	Louis Guzman	    14	          39            Guzman
+                                                                      6	 20578	Denise Mcclure	  15	          40            Mcclure
+                                                                      7	 12869	James Raymond	    15	          32            Raymond
+                                                                      8	 53461	Noah Collier	    18	          35            Collier
+                                                                      9	 14746	Donna Frederick	  20	          41            Frederick
+                                                                      10 71127	Shirley Beck	    14	          32            Beck
+                                                                      11 92522	Christina Kelly	  8	            44            Kelly
+                                                                      12 22447	Brian Noble	      11	          39            Noble
+                                                                      13 61654	Randy Key	        16	          38            Key
+                                                                      14 16988	Diana Stewart	    14	          48            Stewart
+                                                                      15 68619	Timothy Sosa	    14	          42            Sosa
+                                                                      16 59949	Betty Skinner	    11	          48            Skinner
+                                                                      17 81418	Janet Maxwell	    12	          38            Maxwell
+                                                                      18 27267	Madison Johnston	20	          37            Johnston
+                                                                      19 19985	Virginia Nichols	13	          49            Nichols
+
+                        APPLYING A LAMBDA TO A ROW
+
+  9. If an employee worked for more than 40 hours, she needs to be paid overtime (1.5 times the normal hourly wage). For instance, if an employee worked for 43 hours and made $10/hour, 
+she would receive $400 for the first 40 hours that she worked, and an additional $45 for the 3 hours of overtime, for a total for $445.
+Create a lambda function total_earned that accepts an input row with keys hours_worked and hourly_wage and uses an if statement to calculate the total wages earned.
+GIVEN:
+import codecademylib3                                                    id	    name	            hourly_wage	  hours_worked
+import pandas as pd                                                   0	 10310	Lauren Durham	    19	          43
+df = pd.read_csv('employees.csv')                                     1	 18656	Grace Sellers	    17	          40
+                                                                      2	 61254	Shirley Rasmussen	16	          30
+                                                                      3	 16886	Brian Rojas	      18	          47
+                                                                      4	 89010	Samantha Mosley	  11	          38
+                                                                      5	 87246	Louis Guzman	    14	          39
+                                                                      6	 20578	Denise Mcclure	  15	          40
+                                                                      7	 12869	James Raymond	    15	          32
+                                                                      8	 53461	Noah Collier	    18	          35
+                                                                      9	 14746	Donna Frederick	  20	          41
+                                                                      10 71127	Shirley Beck	    14	          32
+                                                                      11 92522	Christina Kelly	  8	            44
+                                                                      12 22447	Brian Noble	      11	          39
+                                                                      13 61654	Randy Key	        16	          38
+                                                                      14 16988	Diana Stewart	    14	          48
+                                                                      15 68619	Timothy Sosa	    14	          42
+                                                                      16 59949	Betty Skinner	    11	          48
+                                                                      17 81418	Janet Maxwell	    12	          38
+                                                                      18 27267	Madison Johnston	20	          37
+                                                                      19 19985	Virginia Nichols	13	          49
+//
+total_earned = lambda row: (row.hourly_wage * 40) + ((row.hourly_wage * 1.5) * (row.hours_worked - 40)) if row.hours_worked > 40 else row.hourly_wage * row.hours_worked
+  10. Use the lambda function total_earned and apply to add a column total_earned to df with the total amount earned by each employee.
+//
+total_earned = lambda row: (row.hourly_wage * 40) + ((row.hourly_wage * 1.5) * (row.hours_worked - 40)) if row.hours_worked > 40 else row.hourly_wage * row.hours_worked
+df['total_earned'] = df.apply(total_earned, axis=1)
+print(df)                                                  RESULT:
+                                                                         id	    name	            hourly_wage	  hours_worked  total_earned
+                                                                      0	 10310	Lauren Durham	    19	          43          	845.5
+                                                                      1	 18656	Grace Sellers	    17	          40	        	680.0
+                                                                      2	 61254	Shirley Rasmussen	16	          30	        	480.0
+                                                                      3	 16886	Brian Rojas	      18	          47	        	909.0
+                                                                      4 	89010	Samantha Mosley	  11	          38	        	418.0
+                                                                      5 	87246	Louis Guzman	    14	          39	        	546.0
+                                                                      6	 20578	Denise Mcclure  	15	          40	        	600.0
+                                                                      7	 12869	James Raymond	    15	          32	        	480.0
+                                                                      8	 53461	Noah Collier	    18	          35	        	630.0
+                                                                      9	 14746	Donna Frederick	  20	          41	        	830.0
+                                                                      10 71127	Shirley Beck	    14	          32	        	448.0
+                                                                      11 92522	Christina Kelly	  8	            44	        	368.0
+                                                                      12 22447	Brian Noble	      11	          39	        	429.0
+                                                                      13 61654	Randy Key	        16	          38	        	608.0
+                                                                      14 16988	Diana Stewart	    14	          48	        	728.0
+                                                                      15 68619	Timothy Sosa	    14	          42	        	602.0
+                                                                      16 59949	Betty Skinner	    11	          48	        	572.0
+                                                                      17 81418	Janet Maxwell	    12	          38	        	456.0
+                                                                      18 27267	Madison Johnston	20	          37	        	740.0
+                                                                      19 19985	Virginia Nichols	13	          49	        	695.5
+
+                        RENAMING COLUMNS
+
+  11. The DataFrame df contains data about movies from IMDb. We want to present this data to some film producers. Right now, our column names are in lower case, and are not very 
+descriptive. Let’s modify df using the .columns attribute to make the following changes to the columns:
+      Old	          New
+      id	          ID
+      name        	Title
+      genre	        Category
+      year	        Year Released
+      imdb_rating	  Rating
+GIVEN:
+import codecademylib3                                      id	  name	                                    genre	    year	  imdb_rating
+import pandas as pd                                     0  1	  Avatar	                                  action	  2009	  7.9
+                                                        1	 2	  Jurassic World	                          action	  2015	  7.3
+df = pd.read_csv('imdb.csv')                            2	 3	  The Avengers	                            action	  2012	  8.1
+                                                        3	 4	  The Dark Knight	                          action	  2008	  9.0
+                                                        4	 5	  Star Wars: Episode I - The Phantom Menace	action	  1999	  6.6
+                                                        5	 6	  Star Wars	                                action	  1977	  8.7
+                                                        ...
+//
+df.columns = ["ID", "Title", "Category", "Year Released", "Rating"]
+print(df)                                                  RESULT:
+                                                           ID	  Title	                                    Category	Year Released	  Rating
+                                                        0  1	  Avatar	                                  action	  2009	          7.9
+                                                        1	 2	  Jurassic World	                          action	  2015	          7.3
+                                                        2	 3	  The Avengers	                            action	  2012	          8.1
+                                                        3	 4	  The Dark Knight	                          action	  2008	          9.0
+                                                        4	 5	  Star Wars: Episode I - The Phantom Menace	action	  1999	          6.6
+                                                        5	 6	  Star Wars	                                action	  1977	          8.7
+                                                        ...
+
+                        RENAMING COLUMNS II
+
+  12. If we didn’t know that df was a table of movie ratings, the column name might be confusing. To clarify, let’s rename name to movie_title.
+Use the keyword inplace=True so that you modify df rather than creating a new DataFrame!
+GIVEN:
+import codecademylib3                                      id	  name	                                    genre	    year	  imdb_rating
+import pandas as pd                                     0  1	  Avatar	                                  action	  2009	  7.9
+                                                        1	 2	  Jurassic World	                          action	  2015	  7.3
+df = pd.read_csv('imdb.csv')                            2	 3	  The Avengers	                            action	  2012	  8.1
+                                                        3	 4	  The Dark Knight	                          action	  2008	  9.0
+                                                        4	 5	  Star Wars: Episode I - The Phantom Menace	action	  1999	  6.6
+                                                        5	 6	  Star Wars	                                action	  1977	  8.7
+                                                        ...
+//
+df.rename(columns={'name': 'movie_title'}, inplace=True)
+print(df)                                                  RESULT:
+                                                           id	  movie_title	                                    genre	    year	  imdb_rating
+                                                        0  1	  Avatar	                                  action	  2009	  7.9
+                                                        1	 2	  Jurassic World	                          action	  2015	  7.3
+                                                        2	 3	  The Avengers	                            action	  2012	  8.1
+                                                        3	 4	  The Dark Knight	                          action	  2008	  9.0
+                                                        4	 5	  Star Wars: Episode I - The Phantom Menace	action	  1999	  6.6
+                                                        5	 6	  Star Wars	                                action	  1977	  8.7
+
+                        REVIEW
+
+  13. Once more, you’ll be the data analyst for ShoeFly.com, a fictional online shoe store. More messy order data has been loaded into the variable orders. Examine the first 5 rows 
+of the data using print and .head().
+GIVEN:
+import codecademylib3
+import pandas as pd
+orders = pd.read_csv('shoefly.csv')
+//
+print(orders.head(5))                                      RESULT:
+                                                                  id	  first_name  last_name	  gender	email	                        shoe_type	    shoe_material	  shoe_color
+                                                                0	54791	Rebecca	    Lindsay	    female	RebeccaLindsay57@hotmail.com	clogs	        faux-leather	  black
+                                                                1	53450	Emily	      Joyce	      female	EmilyJoyce25@gmail.com	      ballet flats  faux-leather	  navy
+                                                                2	91987	Joyce	      Waller	    female	Joyce.Waller@gmail.com	      sandles	      fabric	        black
+                                                                3	14437	Justin	    Erickson	  male	  Justin.Erickson@outlook.com	  clogs	        faux-leather	  red
+                                                                4	79357	Andrew	    Banks	      male	  AB4318@gmail.com	            boots	        leather	        brown
+  14. Many of our customers want to buy vegan shoes (shoes made from materials that do not come from animals). Add a new column called shoe_source, which is vegan if the materials 
+is not leather and animal otherwise.
+//
+orders['shoe_source'] = orders.shoe_material.apply(lambda material_type: 'animal' if material_type == 'leather' else 'vegan')
+print(orders.head(5))                                      RESULT:
+                                                                  id	  first_name  last_name	  gender	email	                        shoe_type	    shoe_material	  shoe_color  show_source
+                                                                0	54791	Rebecca	    Lindsay	    female	RebeccaLindsay57@hotmail.com	clogs	        faux-leather	  black       vegan
+                                                                1	53450	Emily	      Joyce	      female	EmilyJoyce25@gmail.com	      ballet flats  faux-leather	  navy        vegan
+                                                                2	91987	Joyce	      Waller	    female	Joyce.Waller@gmail.com	      sandles	      fabric	        black       vegan
+                                                                3	14437	Justin	    Erickson	  male	  Justin.Erickson@outlook.com	  clogs	        faux-leather	  red         vegan
+                                                                4	79357	Andrew	    Banks	      male	  AB4318@gmail.com	            boots	        leather	        brown       animal
+  15. Our marketing department wants to send out an email to each customer. Using the columns last_name and gender create a column called salutation which contains 
+Dear Mr. <last_name> for men and Dear Ms. <last_name> for women. Here are some examples:
+last_name	    gender  	salutation
+Smith	        male	    Dear Mr. Smith
+Jones         female  	Dear Ms. Jones
+//
+orders['salutation'] = orders.apply(lambda row: 'Dear Mr. ' + row['last_name'] if row['gender'] == 'male' else 'Dear Ms. ' + row['last_name'], axis=1)
+print(orders.head(5))                                      RESULT:
+                                                                  id	  first_name  last_name	  gender	email	                        shoe_type	    shoe_material	  shoe_color  show_source  salutation
+                                                                0	54791	Rebecca	    Lindsay	    female	RebeccaLindsay57@hotmail.com	clogs	        faux-leather	  black       vegan        Dear Ms. Lindsay
+                                                                1	53450	Emily	      Joyce	      female	EmilyJoyce25@gmail.com	      ballet flats  faux-leather	  navy        vegan        Dear Ms. Joyce
+                                                                2	91987	Joyce	      Waller	    female	Joyce.Waller@gmail.com	      sandles	      fabric	        black       vegan        Dear Ms. Waller
+                                                                3	14437	Justin	    Erickson	  male	  Justin.Erickson@outlook.com	  clogs	        faux-leather	  red         vegan        Dear Mr. Erickson
+                                                                4	79357	Andrew	    Banks	      male	  AB4318@gmail.com	            boots	        leather	        brown       animal       Dear Mr. Banks
+
