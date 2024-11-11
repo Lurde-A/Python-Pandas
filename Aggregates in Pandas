@@ -1,0 +1,240 @@
+                        CALCULATING COLUMN STATITICS
+GIVEN:
+import codecademylib3
+import pandas as pd
+orders = pd.read_csv('orders.csv')
+  1. Once more, we’ll revisit our orders from ShoeFly.com. Our new batch of orders is in the DataFrame orders. Examine the first 10 rows using the following code: print(orders.head(10))
+//
+import codecademylib3
+import pandas as pd
+orders = pd.read_csv('orders.csv')
+print(orders.head(10))                        RESULT:
+                                                            id	  first_name	last_name	    email	                        shoe_type	      shoe_material	  shoe_color	price
+                                                        0  	41874	Kyle	      Peck	        KylePeck71@gmail.com	        ballet flats	  faux-leather  	black	      385.0
+                                                        1	  31349	Elizabeth	  Velazquez    	EVelazquez1971@gmail.com    	boots	          fabric	        brown	      388.0
+                                                        2	  43416	Keith	      Saunders	    KS4047@gmail.com	            sandals	        leather	        navy	      346.0
+                                                        3	  56054	Ryan	      Sweeney	      RyanSweeney14@outlook.com	    sandals        	fabric	        brown	      344.0
+                                                        4	  77402	Donna	      Blankenship  	DB3807@gmail.com	            stilettos	      fabric	        brown	      289.0
+                                                        5	  97148	Albert	    Dillon	      Albert.Dillon@gmail.com      	wedges	        fabric	        brown	      266.0
+                                                        6	  19998	Judith	    Hewitt	      JudithHewitt98@gmail.com	    stilettos	      leather	        black	      395.0
+                                                        7	  83290	Kayla	      Hardin	      Kayla.Hardin@gmail.com	      stilettos      	leather        	white	      241.0
+                                                        8	  77867	Steven	    Blankenship	  Steven.Blankenship@gmail.com	wedges	        leather        	navy	      266.0
+                                                        9	  54885	Carol	      Mclaughlin	  CM3415@gmail.com	            ballet flats	  faux-leather	  brown	      440.0
+  2. Our finance department wants to know the price of the most expensive pair of shoes purchased. Save your answer to the variable most_expensive.
+//
+most_expensive = orders.price.max()
+print(most_expensive)                        RESULT:
+                                                        493.0
+  3. Our fashion department wants to know how many different colors of shoes we are selling. Save your answer to the variable num_colors.
+//
+num_colors = orders.shoe_color.nunique()
+print(num_colors)                            RESULT:
+                                                        5
+
+                        CALCULATING AGGREGATE FUNCTIONS I
+GIVEN:
+import codecademylib3
+import pandas as pd
+orders = pd.read_csv('orders.csv')
+  4. Let’s return to our orders data from ShoeFly.com. In the previous exercise, our finance department wanted to know the most expensive shoe that we sold. Now, they want to know 
+the most expensive shoe for each shoe_type (i.e., the most expensive boot, the most expensive ballet flat, etc.). Save your answer to the variable pricey_shoes.
+  5.Examine the object that you just created using:
+print(pricey_shoes)
+//
+pricey_shoes = orders.groupby('shoe_type').price.max()
+print(pricey_shoes)                          RESULT:
+                                                        shoe_type     price
+                                                        ballet flats	498
+                                                        sandals      	498
+                                                        stilettos    	468
+                                                        wedges	      488
+  5. What type of object is pricey_shoes? Enter the following code to check: print(type(pricey_shoes))
+//
+print(type(pricey_shoes))                   RESULT: 
+                                                        <class 'pandas.core.series.Series'>
+
+                        CALCULATING AGGREGATE FUNCTIONS II
+GIVEN:                                                              	shoe_type	    price
+import codecademylib3                                               0	ballet flats	498
+import pandas as pd                                                 1	sandals	      498
+orders = pd.read_csv('orders.csv')                                  2	stilettos	    468
+pricey_shoes = orders.groupby('shoe_type').price.max()              3	wedges	      488
+  6. Modify your code from the previous exercise so that it ends with reset_index, which will change pricey_shoes into a DataFrame.
+  7. Examine the object that you’ve just created using the following code: print(pricey_shoes)
+//
+pricey_shoes = orders.groupby('shoe_type').price.max().reset_index()
+  8. Now, what type of object is pricey_shoes? Enter the following code to check: print(type(pricey_shoes))
+//
+print(type(pricey_shoes))                   RESULT: 
+                                                        <class 'pandas.core.frame.DataFrame'>
+
+                        CALCULATING AGGREGATE FUNCTIONS III
+GIVEN:
+import codecademylib3
+import numpy as np
+import pandas as pd
+orders = pd.read_csv('orders.csv')
+  9. Once more, we’ll return to the data from ShoeFly.com. Our Marketing team says that it’s important to have some affordably priced shoes available for every color of shoe that we sell.
+Let’s calculate the 25th percentile for shoe price for each shoe_color to help Marketing decide if we have enough cheap shoes on sale. Save the data to the variable cheap_shoes.
+Note: Be sure to use reset_index() at the end of your query so that cheap_shoes is a DataFrame.
+  10. Display cheap_shoes using print.
+//
+orders = pd.read_csv('orders.csv')
+print(orders.head(10))
+cheap_shoes = orders.groupby('shoe_color').price.apply(lambda x: np.percentile(x, 25)).reset_index()
+print(cheap_shoes)                   RESULT: 
+                                                        shoe_color     price
+                                                      0	black	        130.0
+                                                      1	brown	        248.0
+                                                      2	navy	        200.0
+                                                      3	red	          157.0
+                                                      4	white	        188.0
+
+                        CALCULATING AGGREGATE FUNCTIONS IV
+GIVEN:
+import codecademylib3
+import numpy as np
+import pandas as pd
+orders = pd.read_csv('orders.csv')
+shoe_counts = orders.groupby(['shoe_type', 'shoe_color']).id.count().reset_index()
+print(shoe_counts)                   PRINTED:
+                                                        shoe_type	    shoe_color	id
+                                                      0	ballet flats	black	      2
+                                                      1	ballet flats	brown	      11
+                                                      2	ballet flats	navy	      17
+                                                      3	ballet flats	red	        13
+                                                      4	ballet flats	white      	7
+                                                      5	sandals	      black	      3
+                                                      6	sandals	      brown	      10
+                                                      7	sandals	      navy	      13
+                                                      8	sandals	      red	        14
+                                                      9	sandals	      white	      10
+                                                      10	stilettos	  black	      8
+                                                      11	stilettos	  brown	      14
+                                                      12	stilettos	  navy	      7
+                                                      13	stilettos	  red	        16
+                                                      14	stilettos	  white	      5
+                                                      15	wedges	    brown	      13
+                                                      16	wedges	    navy	      16
+                                                      17	wedges	    red	        4
+                                                      18	wedges	    white	      17
+  11. At ShoeFly.com, our Purchasing team thinks that certain shoe_type/shoe_color combinations are particularly popular this year (for example, blue ballet flats are all the rage in Paris).
+Create a DataFrame with the total number of shoes of each shoe_type/shoe_color combination purchased. Save it to the variable shoe_counts. You should be able to do this using groupby 
+and count(). Note: When we’re using count(), it doesn’t really matter which column we perform the calculation on. You should use id in this example, but we would get the same answer 
+if we used shoe_type or last_name. Remember to use reset_index() at the end of your code!
+  12. Display shoe_counts using print.
+//
+orders = pd.read_csv('orders.csv')
+print(orders.head(10))     (added myself)
+shoe_counts = orders.groupby(['shoe_type', 'shoe_color'])['id'].count().reset_index()
+print(shoe_counts)                   RESULT:
+                                                          shoe_type	    shoe_color	id
+                                                      0	  ballet flats	black	      2
+                                                      1	  ballet flats	brown	      11
+                                                      2	  ballet flats	navy	      17
+                                                      3	  ballet flats	red	        13
+                                                      4	  ballet flats	white      	7
+                                                      5	  sandles	      black	      3
+                                                      6	  sandles	      brown	      10
+                                                      7	  sandles	      navy	      13
+                                                      8	  sandles	      red	        14
+                                                      9	  sandles	      white      	10
+                                                      10	stilettos	    black      	8
+                                                      11	stilettos	    brown	      14
+                                                      12	stilettos	    navy	      7
+                                                      13	stilettos	    red	        16
+                                                      14	stilettos	    white      	5
+                                                      15	wedges      	brown	      13
+                                                      16	wedges      	navy	      16
+                                                      17	wedges	      red	        4
+                                                      18	wedges	      white	      17
+
+                        PIVOT TABLES
+  13. In the previous example, you created a DataFrame with the total number of shoes of each shoe_type/shoe_color combination purchased for ShoeFly.com. The purchasing manager complains 
+that this DataFrame is confusing. Make it easier for her to compare purchases of different shoe colors of the same shoe type by creating a pivot table. Save your results to the variable 
+shoe_counts_pivot. Your table should look like this:
+            shoe_type	    black	  brown	  navy	red	  white
+            ballet flats	…      	…	      …	    …	    …
+            sandals	      …      	…	     	…	    …    	…
+            stilettos	    …	     	…	     	…	    …    	…
+            wedges	     	…	     	…       …	    …	    …
+Remember to use reset_index() at the end of your code!
+  14. Display shoe_counts_pivot using print.
+//
+shoe_counts = orders.groupby(['shoe_type', 'shoe_color']).id.count().reset_index()
+shoe_counts_pivot = shoe_counts.pivot(columns='shoe_color', index = 'shoe_type', values = 'id').reset_index()
+print(shoe_counts_pivot)                   RESULT:
+                                                          shoe_type	    black	  brown	  navy	  red	  white
+                                                      0	  ballet flats	2.0	    11.0	  17.0	  13.0	7.0
+                                                      1	  sandals	      3.0	    10.0	  13.0	  14.0	10.0
+                                                      2  	stilettos	    8.0	    14.0	  7.0	    16.0	5.0
+                                                      3	  wedges	      nan	    13.0	  16.0  	4.0	  17.0
+
+                        REVIEW
+GIVEN:
+import codecademylib3
+import pandas as pd
+user_visits = pd.read_csv('page_visits.csv')
+  1. Let’s examine some more data from ShoeFly.com. This time, we’ll be looking at data about user visits to the website (the same dataset that you saw in the introduction to this lesson).
+The data is a DataFrame called user_visits. Use print and head() to examine the first few rows of the DataFrame.
+//
+print(user_visits.head(5))                   RESULT:
+                                                          id	  first_name	last_name	  email	                      month	        utm_source
+                                                      0	  10043	Louis	      Koch	      LouisKoch43@gmail.com	      3 - March	    yahoo
+                                                      1	  10150	Bruce	      Webb	      BruceWebb44@outlook.com	    3 - March	    twitter
+                                                      2	  10155	Nicholas  	Hoffman	    Nicholas.Hoffman@gmail.com	2 - February	google
+                                                      3	  10178	William    	Key	        William.Key@outlook.com	    3 - March	    yahoo
+                                                      4	  10208	Karen	      Bass	      KB4971@gmail.com	          2 - February	google
+  2. The column utm_source contains information about how users got to ShoeFly’s homepage. For instance, if utm_source = Facebook, then the user came to ShoeFly by clicking on an ad on 
+Facebook.com. Use a groupby statement to calculate how many visits came from each of the different sources. Save your answer to the variable click_source. Remember to use reset_index()!
+//
+click_source = user_visits.groupby('utm_source').id.count().reset_index()
+  3. Paste the following code into script.py so that you can see the results of your previous groupby: print(click_source)
+//
+click_source = user_visits.groupby('utm_source').id.count().reset_index()
+print(click_source)                   RESULT:
+                                                          utm_source	id
+                                                      0	  email	      462
+                                                      1	  facebook	  823
+                                                      2  	google	    543
+                                                      3  	twitter	    415
+                                                      4  	yahoo	      757
+  4. Our Marketing department thinks that the traffic to our site has been changing over the past few months. Use groupby to calculate the number of visits to our site from each 
+utm_source for each month. Save your answer to the variable click_source_by_month.
+//
+click_source_by_month = user_visits.groupby(['utm_source', 'month']).id.count().reset_index()
+print(click_source_by_month)                   RESULT:
+                                                          utm_source	month	          id
+                                                      0	  email	      1 - January	    43
+                                                      1	  email	      2 - February	  147
+                                                      2	  email	      3 - March		    272
+                                                      3	  facebook	  1 - January		  404
+                                                      4	  facebook	  2 - February		263
+                                                      5	  facebook	  3 - March	    	156
+                                                      6	  google    	1 - January	    127
+                                                      7	  google 	 		2 - February	  196
+                                                      8	  google	 		3 - March      	220
+                                                      9	  twitter	 		1 - January	    164
+                                                      10	twitter	 		2 - February	  154
+                                                      11	twitter	 		3 - March      	97
+                                                      12	yahoo	      1 - January    	262
+                                                      13	yahoo	      2 - February  	240
+                                                      14	yahoo	      3 - March	      255
+  5. The head of Marketing is complaining that this table is hard to read. Use pivot to create a pivot table where the rows are utm_source and the columns are month. Save your results 
+to the variable click_source_by_month_pivot. It should look something like this:
+                                utm_source	1 - January	2 - February	3 - March
+                                email	      …          	…	            …
+                                facebook	  …         	…	           	…
+                                google	    …	         	…	            …  
+                                twitter	    …	         	…	            …
+                                yahoo      	…	         	…	            …
+  6. View your pivot table by pasting the following code into script.py: print(click_source_by_month_pivot)
+//
+click_source_by_month_pivot = click_source_by_month.pivot(columns = 'month', index = 'utm_source', values = 'id').reset_index()
+print(click_source_by_month_pivot)             RESULT:
+                                                        utm_source	1 - January	2 - February	3 - March
+                                                      0	email	      43	        147	          272
+                                                      1	facebook	  404	        263	          156
+                                                      2	google	    127	        196	          220
+                                                      3	twitter	    164	        154	          97
+                                                      4	yahoo	      262	        240	          255
